@@ -13,9 +13,48 @@ public class ProductService : IProductService
         _context = context;
     }
 
-    public async Task<List<Product>> GetAllProductsAsync()
+    // Use LINQ to filter products based on the provided criteria
+    /* IQueryable allows for deferred execution, meaning the query is not executed until the results are actually needed. 
+    This allows building up a query with multiple conditions before executing it against the database.*/
+    public async Task<List<Product>> GetAllProductsAsync(
+        string? category = null,
+        decimal? minPrice = null,
+        decimal? maxPrice = null,
+        bool? inStock = null,
+        bool? orderByPriceAsc = null,
+        int pageSize = 10,
+        int pageNumber = 1
+    )
     {
-        return await _context.Products.ToListAsync();
+        var query = _context.Products.AsQueryable();
+        
+        if (!string.IsNullOrEmpty(category))
+        {
+            query = query.Where(p => p.Category == category);
+        }
+
+        if (minPrice.HasValue)
+        {
+            query = query.Where(p => p.Price >= minPrice.Value);
+        }
+
+        if (maxPrice.HasValue)
+        {
+            query = query.Where(p => p.Price <= maxPrice.Value);
+        }
+
+        if (inStock.HasValue && inStock.Value )
+        {
+            query = query.Where(p => p.StockQuantity > 0);
+        }
+
+        if (orderByPriceAsc.HasValue && orderByPriceAsc.Value)
+        {
+            query = query.OrderBy(p => p.Price); // Sort by price in ascending order
+        }
+
+        query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+        return await query.ToListAsync();
     }
 
     public async Task<Product?> GetProductByIdAsync(Guid id)
