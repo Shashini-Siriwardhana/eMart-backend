@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProductsService.Data;
 using ProductsService.Services;
+using ProductsService.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,12 +11,11 @@ builder.Services.AddDbContext<ProductDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 // Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-
 // Add controller support
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 

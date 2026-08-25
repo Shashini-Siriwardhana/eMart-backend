@@ -1,21 +1,19 @@
-using Microsoft.EntityFrameworkCore;
-using ProductsService.Data;
+// using Microsoft.EntityFrameworkCore;
+// using ProductsService.Data;
 using ProductsService.Models;
 using ProductsService.DTOs;
+using ProductsService.Repositories;
 
 namespace ProductsService.Services;
 public class ProductService : IProductService
 {
-    private readonly ProductDbContext _context;
+    private readonly IProductRepository _repository;
 
-    public ProductService(ProductDbContext context)
+    public ProductService(IProductRepository repository)
     {
-        _context = context;
+        _repository = repository;
     }
 
-    // Use LINQ to filter products based on the provided criteria
-    /* IQueryable allows for deferred execution, meaning the query is not executed until the results are actually needed. 
-    This allows building up a query with multiple conditions before executing it against the database.*/
     public async Task<List<Product>> GetAllProductsAsync(
         string? category = null,
         decimal? minPrice = null,
@@ -26,40 +24,20 @@ public class ProductService : IProductService
         int pageNumber = 1
     )
     {
-        var query = _context.Products.AsQueryable();
-        
-        if (!string.IsNullOrEmpty(category))
-        {
-            query = query.Where(p => p.Category == category);
-        }
-
-        if (minPrice.HasValue)
-        {
-            query = query.Where(p => p.Price >= minPrice.Value);
-        }
-
-        if (maxPrice.HasValue)
-        {
-            query = query.Where(p => p.Price <= maxPrice.Value);
-        }
-
-        if (inStock.HasValue && inStock.Value )
-        {
-            query = query.Where(p => p.StockQuantity > 0);
-        }
-
-        if (orderByPriceAsc.HasValue && orderByPriceAsc.Value)
-        {
-            query = query.OrderBy(p => p.Price); // Sort by price in ascending order
-        }
-
-        query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
-        return await query.ToListAsync();
+        return await _repository.GetAllAsync(
+            category,
+            minPrice,
+            maxPrice,
+            inStock,
+            orderByPriceAsc,
+            pageSize,
+            pageNumber
+        );
     }
 
     public async Task<Product?> GetProductByIdAsync(Guid id)
     {
-        return await _context.Products.FindAsync(id);
+        return await _repository.GetByIdAsync(id);
     }
 
     public async Task<Product> CreateProductAsync(CreateProductDto productDto)
@@ -74,14 +52,14 @@ public class ProductService : IProductService
             ImageUrl = productDto.ImageUrl,
             StockQuantity = productDto.StockQuantity
         };
-        _context.Products.Add(product);
-        await _context.SaveChangesAsync();
+        await _repository.AddAsync(product);
+        await _repository.SaveChangesAsync();
         return product;
     }
 
     public async Task<Product?> UpdateProductAsync(Guid id, UpdateProductDto productDto)
     {
-        var existingProduct = await _context.Products.FindAsync(id);
+        var existingProduct = await _repository.GetByIdAsync(id);
         if (existingProduct == null)
         {
             return null;
@@ -94,20 +72,20 @@ public class ProductService : IProductService
         if (productDto.ImageUrl != null) existingProduct.ImageUrl = productDto.ImageUrl;
         if (productDto.StockQuantity.HasValue) existingProduct.StockQuantity = productDto.StockQuantity.Value;
 
-        await _context.SaveChangesAsync();
+        await _repository.SaveChangesAsync();
         return existingProduct;
     }
 
     public async Task<bool> DeleteProductAsync(Guid id)
     {
-        var product = await _context.Products.FindAsync(id);
+        var product = await _repository.GetByIdAsync(id);
         if (product == null)
         {
             return false;
         }
 
-        _context.Products.Remove(product);
-        await _context.SaveChangesAsync();
+        _repository.Remove(product);
+        await _repository.SaveChangesAsync();
         return true;
     }
 }
