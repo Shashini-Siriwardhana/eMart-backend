@@ -40,8 +40,14 @@ public class ProductService : IProductService
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task<Product> CreateProductAsync(CreateProductDto productDto)
+    public async Task<Product?> CreateProductAsync(CreateProductDto productDto)
     {
+        var existingProduct = await _repository.GetByNameAsync(productDto.Name);
+
+        if (existingProduct is not null)
+        {
+            return null;
+        }
         var product = new Product
         {
             Id = Guid.NewGuid(),

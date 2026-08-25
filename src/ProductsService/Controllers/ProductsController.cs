@@ -19,7 +19,9 @@ public class ProductsController : ControllerBase
         [FromQuery] decimal? minPrice = null,
         [FromQuery] decimal? maxPrice = null,
         [FromQuery] bool? inStock = null,
-        [FromQuery] bool? orderByPriceAsc = null
+        [FromQuery] bool? orderByPriceAsc = null,
+        [FromQuery] int pageSize = 10,
+        [FromQuery] int pageNumber = 1
     )
     {
         var products = await _productService.GetAllProductsAsync(
@@ -27,7 +29,9 @@ public class ProductsController : ControllerBase
             minPrice,
             maxPrice,
             inStock,
-            orderByPriceAsc
+            orderByPriceAsc,
+            pageSize,
+            pageNumber
         );
         return Ok(products);    
     }
@@ -47,6 +51,14 @@ public class ProductsController : ControllerBase
     public async Task<IActionResult> CreateProduct(CreateProductDto product)
     {
         var createdProduct = await _productService.CreateProductAsync(product);
+
+        if (createdProduct is null)
+        {
+            return Conflict(new
+            {
+                message = "A product with this name already exists."
+            });
+        }
         return CreatedAtAction(nameof(GetProductById), new { id = createdProduct.Id }, createdProduct);
     }
 

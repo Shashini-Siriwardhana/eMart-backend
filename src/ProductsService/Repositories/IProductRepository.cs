@@ -15,6 +15,7 @@ public interface IProductRepository
         int pageNumber = 1
     );
     Task<Product?> GetByIdAsync(Guid id);
+    Task<Product?> GetByNameAsync(string name);
     Task AddAsync(Product product);
 
     void Remove(Product product);

@@ -14,7 +14,7 @@ public interface IProductService
         int pageNumber = 1
     );
     Task<Product?> GetProductByIdAsync(Guid id);
-    Task<Product> CreateProductAsync(CreateProductDto product);
+    Task<Product?> CreateProductAsync(CreateProductDto product);
     Task<Product?> UpdateProductAsync(Guid id, UpdateProductDto product);
     Task<bool> DeleteProductAsync(Guid id);
 }
