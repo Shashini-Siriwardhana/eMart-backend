@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsService", "ProductsService\ProductsService.csproj", "{6F992CEA-5004-4195-B10F-CC5B5DFDD9AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsService", "src\ProductsService\ProductsService.csproj", "{6F992CEA-5004-4195-B10F-CC5B5DFDD9AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService", "IdentityService\IdentityService.csproj", "{461F8E15-460E-4700-A018-FFAF1872D832}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService", "src\IdentityService\IdentityService.csproj", "{461F8E15-460E-4700-A018-FFAF1872D832}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05-4346-4AA6-1389-037BE0695223}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsService.Tests", "tests\ProductsService.Tests\ProductsService.Tests.csproj", "{EE76067D-59ED-4CE4-AB5D-9566272B7D47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,8 +47,23 @@ Global
 		{461F8E15-460E-4700-A018-FFAF1872D832}.Release|x64.Build.0 = Release|Any CPU
 		{461F8E15-460E-4700-A018-FFAF1872D832}.Release|x86.ActiveCfg = Release|Any CPU
 		{461F8E15-460E-4700-A018-FFAF1872D832}.Release|x86.Build.0 = Release|Any CPU
+		{EE76067D-59ED-4CE4-AB5D-9566272B7D47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE76067D-59ED-4CE4-AB5D-9566272B7D47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE76067D-59ED-4CE4-AB5D-9566272B7D47}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EE76067D-59ED-4CE4-AB5D-9566272B7D47}.Debug|x64.Build.0 = Debug|Any CPU
+		{EE76067D-59ED-4CE4-AB5D-9566272B7D47}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EE76067D-59ED-4CE4-AB5D-9566272B7D47}.Debug|x86.Build.0 = Debug|Any CPU
+		{EE76067D-59ED-4CE4-AB5D-9566272B7D47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE76067D-59ED-4CE4-AB5D-9566272B7D47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE76067D-59ED-4CE4-AB5D-9566272B7D47}.Release|x64.ActiveCfg = Release|Any CPU
+		{EE76067D-59ED-4CE4-AB5D-9566272B7D47}.Release|x64.Build.0 = Release|Any CPU
+		{EE76067D-59ED-4CE4-AB5D-9566272B7D47}.Release|x86.ActiveCfg = Release|Any CPU
+		{EE76067D-59ED-4CE4-AB5D-9566272B7D47}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EE76067D-59ED-4CE4-AB5D-9566272B7D47} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 	EndGlobalSection
 EndGlobal
