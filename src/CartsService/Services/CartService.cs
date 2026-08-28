@@ -1,3 +1,4 @@
+using CartsService.Clients;
 using CartsService.DTOs;
 using CartsService.Models;
 using CartsService.Repositories;
@@ -7,19 +8,33 @@ namespace CartsService.Services;
 public class CartService : ICartService
 {
     private readonly ICartRepository _repository;
+    private readonly IProductApiClient _productApiClient;
 
-    public CartService (ICartRepository repository)
+    public CartService (ICartRepository repository, IProductApiClient productApiClient)
     {
         _repository = repository;
+        _productApiClient = productApiClient;
     }
 
     public async Task<Cart?> GetCartAsync(Guid userId)
     {
-        return await _repository.GetCartByUserIdAsync(userId);
+        var cart = await _repository.GetCartByUserIdAsync(userId);
+        if (cart is null)
+        {
+            return cart;
+        }
+        return await CreateCartResponse(cart);
     }
 
     public async Task<Cart?> AddItemToCartAsync(Guid userId, AddCartItemDto dto)
     {
+        var product = await _productApiClient.GetProductByIdAsync(dto.ProductId);
+
+        if (product is null)
+        {
+            return null;
+        }
+
         var existingCart = await _repository.GetCartByUserIdAsync(userId);
 
         if (existingCart is not null)
@@ -45,7 +60,7 @@ public class CartService : ICartService
 
             existingCart.UpdatedAt = DateTime.UtcNow;
             await _repository.SaveChangesAsync();
-            return existingCart;
+            return await CreateCartResponse(existingCart);
         }
 
         Guid cartId = Guid.NewGuid();
@@ -68,11 +83,18 @@ public class CartService : ICartService
 
         await _repository.AddCartAsync(cart);
         await _repository.SaveChangesAsync();
-        return cart;
+        return await CreateCartResponse(cart);
     }
 
     public async Task<Cart?> UpdateItemQuantityAsync(Guid userId, Guid productId, int quantity)
     {
+        var product = await _productApiClient.GetProductByIdAsync(productId);
+
+        if (product is null)
+        {
+            return null;
+        }
+
         var existingCart = await _repository.GetCartByUserIdAsync(userId);
 
         if (existingCart is null)
@@ -91,7 +113,7 @@ public class CartService : ICartService
 
         var updatedQuantity = existingCartItem.Quantity + quantity;
 
-        if (updatedQuantity < 0)
+        if (updatedQuantity < 0 || updatedQuantity > product.StockQuantity)
         {
             return null;
         } else if (updatedQuantity == 0)
@@ -102,7 +124,7 @@ public class CartService : ICartService
         existingCart.UpdatedAt = DateTime.UtcNow;
         await _repository.SaveChangesAsync();
 
-        return existingCart;
+        return await CreateCartResponse(existingCart);
     }
 
     public async Task<Cart?> DeleteItemFromCartAsync(Guid userId, Guid productId)
@@ -125,6 +147,27 @@ public class CartService : ICartService
         existingCart.CartItems.Remove(cartItem);
         existingCart.UpdatedAt = DateTime.UtcNow;
         await _repository.SaveChangesAsync();
-        return existingCart;
+        return await CreateCartResponse(existingCart);
     }
+
+    private async Task<Cart> CreateCartResponse(Cart cart)
+    {
+        foreach (var cartItem in cart.CartItems)
+        {
+            var product = await _productApiClient
+                .GetProductByIdAsync(cartItem.ProductId);
+
+            if (product is null)
+            {
+                continue;
+            }
+            cartItem.ProductName = product.Name;
+            cartItem.Price = product.Price;
+            cartItem.ImageUrl = product.ImageUrl;
+            cartItem.Subtotal = product.Price * cartItem.Quantity;
+        }
+
+        return cart;
+    }
+
 }
