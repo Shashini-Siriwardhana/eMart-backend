@@ -78,6 +78,19 @@ public class ProductRepository : IProductRepository
         _context.Products.Remove(product);
     }
 
+    public async Task<bool> ReduceStockAsync(Guid productId, int quantity)
+    {
+        // Update directly in the DB
+        var affectedRows = await _context.Products
+        .Where(product => product.Id == productId && product.StockQuantity >= quantity)
+        .ExecuteUpdateAsync(setters => setters.SetProperty(
+            product => product.StockQuantity, // Property that needs to be updated
+            product => product.StockQuantity - quantity // New value
+        ));
+
+        return affectedRows == 1;
+    }
+
     public async Task SaveChangesAsync()
     {
         await _context.SaveChangesAsync();
