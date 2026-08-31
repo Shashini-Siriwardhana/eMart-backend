@@ -27,4 +27,16 @@ public class ProductApiClient : IProductApiClient
 
         return await response.Content.ReadFromJsonAsync<ProductDto>();
     }
+
+    public async Task<bool> ReduceStockAsync(Guid productId, int quantity)
+    {
+        var response = await _httpClient.PostAsJsonAsync(
+            $"api/products/{productId}/reduce-stock",
+            new ReduceStockDto
+            {
+                Quantity = quantity
+            });
+
+        return response.IsSuccessStatusCode;
+    }
 }

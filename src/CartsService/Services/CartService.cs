@@ -150,6 +150,18 @@ public class CartService : ICartService
         return await CreateCartResponse(existingCart);
     }
 
+    public async Task<bool> DeleteCartAsync(Guid userId)
+    {
+        var existingCart = await _repository.GetCartByUserIdAsync(userId);
+
+        if (existingCart is null)
+        {
+            return false;
+        }
+        await _repository.DeleteCart(existingCart.Id);
+        return true;
+    }
+
     private async Task<Cart> CreateCartResponse(Cart cart)
     {
         foreach (var cartItem in cart.CartItems)
