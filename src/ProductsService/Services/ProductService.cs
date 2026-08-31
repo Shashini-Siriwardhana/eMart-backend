@@ -82,6 +82,11 @@ public class ProductService : IProductService
         return existingProduct;
     }
 
+    public async Task<bool> ReduceStockAsync(Guid productId, int quantity)
+    {
+        return await _repository.ReduceStockAsync(productId, quantity);
+    }
+
     public async Task<bool> DeleteProductAsync(Guid id)
     {
         var product = await _repository.GetByIdAsync(id);

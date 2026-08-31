@@ -74,6 +74,24 @@ public class ProductsController : ControllerBase
         return Ok(updatedProduct);
     }
 
+    [HttpPost("{productId:guid}/reduce-stock")] 
+    public async Task<IActionResult> ReduceStock(Guid productId, [FromBody] ReduceStockDto dto)
+    {
+        if (dto.Quantity <= 0)
+        {
+            return BadRequest("Quantity must be greater than zero");
+        }
+
+        var success = await _productService.ReduceStockAsync(productId, dto.Quantity);
+
+        if (!success)
+        {
+            return BadRequest("Product does not exist or insufficient stock.");
+        }
+
+        return Ok($"Stock reduced by {dto.Quantity}");
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteProduct(Guid id)
     {

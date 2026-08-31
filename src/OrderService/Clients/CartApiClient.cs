@@ -27,4 +27,13 @@ public class CartApiClient : ICartApiClient
 
         return await response.Content.ReadFromJsonAsync<CartDto>();
     }
+
+    public async Task<bool> ClearCartAsync(Guid userId)
+    {
+        var response = await _httpClient.DeleteAsync(
+            $"api/cart/{userId}/items"
+        );
+
+       return response.IsSuccessStatusCode;
+    }
 }

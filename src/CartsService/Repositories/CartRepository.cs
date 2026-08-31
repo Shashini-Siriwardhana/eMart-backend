@@ -58,6 +58,11 @@ public class CartRepository : ICartRepository
         _context.CartItems.Remove(cartItem);
     }
 
+    public async Task DeleteCart(Guid cartId)
+    {
+        await _context.Carts.Where(cart => cart.Id == cartId).ExecuteDeleteAsync();
+    }
+
     public async Task SaveChangesAsync()
     {
         await _context.SaveChangesAsync();

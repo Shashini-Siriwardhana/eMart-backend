@@ -68,5 +68,18 @@ public class CartController : ControllerBase
 
         return Ok(cart);
     }
+
+    [HttpDelete("{userId:guid}/items")]
+    public async Task<IActionResult> ClearCart(Guid userId)
+    {
+        var success = await _cartService.DeleteCartAsync(userId);
+
+        if(!success)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
     
 }

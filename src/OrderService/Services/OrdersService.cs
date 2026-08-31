@@ -84,9 +84,23 @@ public class OrdersService : IOrdersService
 
             order.OrderItems.Add(orderItem);
             order.TotalAmount += orderItem.SubTotal;
+            var stockReduced = await _productApiClient.ReduceStockAsync(item.ProductId, item.Quantity);
+
+            if (!stockReduced)
+            {
+                return null;
+            }
         }
 
         await _repository.AddOrderAsync(order);
+        await _repository.SaveAsync();
+
+        // Clear cart
+        await _cartApiClient.ClearCartAsync(userId);
+
+        // Confirm
+        order.Status = OrderStatus.Confirmed;
+        order.UpdatedAt = DateTime.UtcNow;
         await _repository.SaveAsync();
 
         return order;
