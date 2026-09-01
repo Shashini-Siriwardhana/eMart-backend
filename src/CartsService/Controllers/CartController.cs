@@ -19,8 +19,6 @@ public class CartController : ControllerBase
     public async Task<IActionResult> GetCartItems(Guid userId)
     {
         var cart = await _cartService.GetCartAsync(userId);
-        Console.WriteLine("cart service");
-        Console.WriteLine(cart);
 
         if (cart is null)
         {
