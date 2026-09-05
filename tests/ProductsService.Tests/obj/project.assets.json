@@ -3254,8 +3254,8 @@
     },
     "ProductsService/1.0.0": {
       "type": "project",
-      "path": "../../src/ProductsService/ProductsService.csproj",
-      "msbuildProject": "../../src/ProductsService/ProductsService.csproj"
+      "path": "../../src/backend/ProductsService/ProductsService.csproj",
+      "msbuildProject": "../../src/backend/ProductsService/ProductsService.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3295,8 +3295,8 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/ProductsService/ProductsService.csproj": {
-              "projectPath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/ProductsService/ProductsService.csproj"
+            "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/backend/ProductsService/ProductsService.csproj": {
+              "projectPath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/backend/ProductsService/ProductsService.csproj"
             }
           }
         }

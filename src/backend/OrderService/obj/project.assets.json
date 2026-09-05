@@ -2212,11 +2212,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/OrderService/OrderService.csproj",
+      "projectUniqueName": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/backend/OrderService/OrderService.csproj",
       "projectName": "OrderService",
-      "projectPath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/OrderService/OrderService.csproj",
+      "projectPath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/backend/OrderService/OrderService.csproj",
       "packagesPath": "/Users/shashinisiriwardhana/.nuget/packages/",
-      "outputPath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/OrderService/obj/",
+      "outputPath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/backend/OrderService/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/shashinisiriwardhana/.nuget/NuGet/NuGet.Config"

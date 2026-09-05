@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gdU3mZ29hCc=",
+  "dgSpecHash": "vmGJCQiQ3A0=",
   "success": true,
-  "projectFilePath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/ProductsService/ProductsService.csproj",
+  "projectFilePath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/backend/ProductsService/ProductsService.csproj",
   "expectedPackageFiles": [
     "/Users/shashinisiriwardhana/.nuget/packages/azure.core/1.50.0/azure.core.1.50.0.nupkg.sha512",
     "/Users/shashinisiriwardhana/.nuget/packages/azure.identity/1.17.1/azure.identity.1.17.1.nupkg.sha512",

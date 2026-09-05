@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/IdentityService/IdentityService.csproj": {}
+    "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/backend/OrderService/OrderService.csproj": {}
   },
   "projects": {
-    "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/IdentityService/IdentityService.csproj": {
+    "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/backend/OrderService/OrderService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/IdentityService/IdentityService.csproj",
-        "projectName": "IdentityService",
-        "projectPath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/IdentityService/IdentityService.csproj",
+        "projectUniqueName": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/backend/OrderService/OrderService.csproj",
+        "projectName": "OrderService",
+        "projectPath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/backend/OrderService/OrderService.csproj",
         "packagesPath": "/Users/shashinisiriwardhana/.nuget/packages/",
-        "outputPath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/IdentityService/obj/",
+        "outputPath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/backend/OrderService/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/shashinisiriwardhana/.nuget/NuGet/NuGet.Config"
@@ -46,15 +46,11 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
-            "Microsoft.AspNetCore.Authentication.JwtBearer": {
-              "target": "Package",
-              "version": "[10.0.11, )"
-            },
-            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[10.0.11, )"
-            },
             "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[10.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[10.0.11, )"
             },
@@ -67,10 +63,6 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[10.0.3, )"
-            },
-            "System.IdentityModel.Tokens.Jwt": {
-              "target": "Package",
-              "version": "[8.22.0, )"
             }
           },
           "imports": [

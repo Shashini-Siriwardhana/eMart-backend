@@ -2212,11 +2212,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/CartsService/CartsService.csproj",
-      "projectName": "CartsService",
-      "projectPath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/CartsService/CartsService.csproj",
+      "projectUniqueName": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/backend/PaymentsService/PaymentsService.csproj",
+      "projectName": "PaymentsService",
+      "projectPath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/backend/PaymentsService/PaymentsService.csproj",
       "packagesPath": "/Users/shashinisiriwardhana/.nuget/packages/",
-      "outputPath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/CartsService/obj/",
+      "outputPath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/backend/PaymentsService/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/shashinisiriwardhana/.nuget/NuGet/NuGet.Config"
