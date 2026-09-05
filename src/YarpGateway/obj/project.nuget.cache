@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "caOeDfdF92E=",
+  "success": true,
+  "projectFilePath": "/Users/shashinisiriwardhana/Doc/Projects/eMart/src/YarpGateway/YarpGateway.csproj",
+  "expectedPackageFiles": [
+    "/Users/shashinisiriwardhana/.nuget/packages/microsoft.aspnetcore.openapi/10.0.11/microsoft.aspnetcore.openapi.10.0.11.nupkg.sha512",
+    "/Users/shashinisiriwardhana/.nuget/packages/microsoft.openapi/2.7.5/microsoft.openapi.2.7.5.nupkg.sha512",
+    "/Users/shashinisiriwardhana/.nuget/packages/system.io.hashing/8.0.0/system.io.hashing.8.0.0.nupkg.sha512",
+    "/Users/shashinisiriwardhana/.nuget/packages/yarp.reverseproxy/2.3.0/yarp.reverseproxy.2.3.0.nupkg.sha512"
+  ],
+  "logs": []
+}
