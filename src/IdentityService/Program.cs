@@ -31,6 +31,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -43,5 +45,6 @@ app.MapControllers();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+app.MapHealthChecks("/health");
 
 app.Run();

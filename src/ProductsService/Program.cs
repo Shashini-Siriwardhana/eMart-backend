@@ -17,6 +17,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,5 +31,6 @@ app.UseHttpsRedirection();
 
 // Find and map controller endpoints
 app.MapControllers();
+app.MapHealthChecks("/health");
 
 app.Run();
