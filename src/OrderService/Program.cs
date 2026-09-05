@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using OrderService.Clients;
 using OrderService.Data;
@@ -26,7 +27,12 @@ builder.Services.AddHttpClient<ICartApiClient, CartApiClient>(
         );
     });
 
-builder.Services.AddControllers();
+builder.Services
+.AddControllers()
+.AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 // Add services to the container.
 builder.Services.AddOpenApi();
 
