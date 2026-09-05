@@ -30,6 +30,14 @@ public class PaymentRepository : IPaymentRepository
         await _context.Payments.AddAsync(payment);
     }
 
+    public async Task UpdatePaymentAsync(Payment payment)
+    {
+        await _context.Payments.Where(p => p.Id == payment.Id).ForEachAsync(p =>
+        {
+            p.Status = payment.Status;
+        });
+    }
+
     public async Task SaveChangesAsync()
     {
         await _context.SaveChangesAsync();

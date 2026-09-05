@@ -1,3 +1,4 @@
+using PaymentsService.DTOs;
 using PaymentsService.Enums;
 using PaymentsService.Models;
 
@@ -7,5 +8,6 @@ public interface IPaymentService
 {
     Task<Payment?> GetPaymentByOrderIdAsync(Guid orderId);
     Task<List<Payment>> GetPaymentByUserIdAsync(Guid userId);
-    Task<bool> CreatePaymentAsync(Guid orderId, PaymentMethod paymentMethod);
+    Task<PaymentResult> CreatePaymentAsync(Guid orderId);
+    Task<PaymentResult> UpdatePaymentAsync(Guid orderId, PaymentMethod paymentMethod);
 }

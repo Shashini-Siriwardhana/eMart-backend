@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PaymentsService.DTOs;
+using PaymentsService.Models;
 using PaymentsService.Services;
 
 namespace PaymentsService.Controllers;
@@ -44,13 +45,26 @@ public class PaymentController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreatePayment([FromBody] CreatePaymentDto dto)
     {
-       var success = await _paymentService.CreatePaymentAsync(dto.OrderId, dto.PaymentMethod);
+       var response = await _paymentService.CreatePaymentAsync(dto.OrderId);
 
-       if (!success)
+       if (!response.IsSuccess)
         {
-            return BadRequest("Payment could not be processed.");
+            return BadRequest(response);
         }
 
-        return Ok($"Payment completed for order {dto.OrderId}");
+        return Ok(response);
+    }
+
+    [HttpPatch]
+    public async Task<IActionResult> UpdatePayment([FromBody] UpdatePaymentDto dto)
+    {
+        var response = await _paymentService.UpdatePaymentAsync(dto.OrderId, dto.PaymentMethod);
+
+        if (!response.IsSuccess)
+        {
+            return BadRequest(response);
+        }
+
+        return Ok(response);
     }
 }

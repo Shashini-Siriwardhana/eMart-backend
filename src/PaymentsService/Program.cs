@@ -2,8 +2,10 @@ using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using PaymentsService.Clients;
 using PaymentsService.Data;
+using PaymentsService.Factories;
 using PaymentsService.Repositories;
 using PaymentsService.Services;
+using PaymentsService.Strategies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,12 @@ builder.Services
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+
+builder.Services.AddScoped<CardPaymentStrategy>();
+builder.Services.AddScoped<PayPalPaymentStrategy>();
+builder.Services.AddScoped<CashOnDeliveryPaymentStrategy>();
+
+builder.Services.AddScoped<IPaymentStrategyFactory, PaymentStrategyFactory>();
 
 var app = builder.Build();
 
